@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NK_EMP", "NK_EMP.csproj", "{5E82B3E5-E671-4155-A69E-F7043747290C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NK_EMPWeb", "..\NK_EMPWeb\NK_EMPWeb.csproj", "{B7BE29C3-4539-4FE8-955D-428B9340D610}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E82B3E5-E671-4155-A69E-F7043747290C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E82B3E5-E671-4155-A69E-F7043747290C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E82B3E5-E671-4155-A69E-F7043747290C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5E82B3E5-E671-4155-A69E-F7043747290C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E82B3E5-E671-4155-A69E-F7043747290C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E82B3E5-E671-4155-A69E-F7043747290C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B7BE29C3-4539-4FE8-955D-428B9340D610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7BE29C3-4539-4FE8-955D-428B9340D610}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7BE29C3-4539-4FE8-955D-428B9340D610}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7BE29C3-4539-4FE8-955D-428B9340D610}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E89D13D-6FF7-4009-A337-904E4BF362CD}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,6 @@
+C:\Nandkumar\NK_EMP\NK_EMP\bin\Debug\NK_EMP.dll.config
+C:\Nandkumar\NK_EMP\NK_EMP\bin\Debug\NK_EMP.pdb
+C:\Nandkumar\NK_EMP\NK_EMP\obj\Debug\NK_EMP.csprojAssemblyReference.cache
+C:\Nandkumar\NK_EMP\NK_EMP\obj\Debug\NK_EMP.csproj.CoreCompileInputs.cache
+C:\Nandkumar\NK_EMP\NK_EMP\obj\Debug\NK_EMP.dll
+C:\Nandkumar\NK_EMP\NK_EMP\obj\Debug\NK_EMP.pdb
