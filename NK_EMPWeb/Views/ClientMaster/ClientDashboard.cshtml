@@ -1,0 +1,106 @@
+﻿@using NK_EMPWeb.Models.EmployeeManagement;
+
+@{
+    ViewBag.Title = "ClientDashboard";
+}
+
+@section style{
+    <!-- Internal Data table css -->
+<link href="../assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="../assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
+<link href="../assets/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+<link href="../assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
+<link href="../assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+}
+
+<div class="breadcrumb-header justify-content-between">
+    <div class="my-auto">
+        <div class="d-flex">
+            <h4 class="content-title mb-0 my-auto">Employee Mangment</h4><span class="text-muted mt-1 tx-13 ml-2 mb-0">/ Client Master Dashboard</span>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb -->
+<!-- row -->
+<div class="row">
+    <div class="col-xl-12 col-lg-12">
+        <!--Dashboard Code start-->
+        <div class="card mg-b-20">
+            <div class="custom-card">
+                <div class="card-body">
+                    <div class=" row-sm text-center">
+                        <div class="col-sm-6 col-md-2 mg-t-10 float-right">
+                            <a class="btn btn-info btn-block text-white" href="CreateNewClient?SPHostUrl=https://ascenworktech.sharepoint.com/sites/Developer/">Add</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table id="ClientMaster" class="table key-buttons text-md-nowrap">
+                        <thead>
+                            <tr>
+                                <th class="border-bottom-0">Client Name</th>
+                                <th class="border-bottom-0">Contact No</th>
+                                <th class="border-bottom-0">Designation</th>
+                                <th class="border-bottom-0">Email ID</th>
+                                <th class="border-bottom-0">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Emp_ClientMasterDetailsModels clientmaster in (List<Emp_ClientMasterDetailsModels>)ViewBag.ClientList)
+                            {
+                                <tr>
+                                    <td>@clientmaster.ClientName</td>
+                                    <td>@clientmaster.ClientContact</td>
+                                    <td>@clientmaster.ClientDesignation</td>
+                                    <td>@clientmaster.ClientMailID</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-primary btn-icon"><i class="far fa-edit"></i></button>
+
+                                            <a href="@Url.Action("ClientDetails",new { id = clientmaster.ID })" class="btn btn-primary btn-icon"><i class="far fa-eye"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--Dashboard Code End-->
+    </div>
+</div>
+@section scripts {
+    <script src="../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.dataTables.min.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
+    <script src="../assets/plugins/datatable/js/responsive.dataTables.min.js"></script>
+    <script src="../assets/plugins/datatable/js/jquery.dataTables.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.bootstrap4.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.buttons.min.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.bootstrap4.min.js"></script>
+    <script src="../assets/plugins/datatable/js/jszip.min.js"></script>
+    <script src="../assets/plugins/datatable/js/pdfmake.min.js"></script>
+    <script src="../assets/plugins/datatable/js/vfs_fonts.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.html5.min.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.print.min.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.colVis.min.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
+    <script src="../assets/plugins/datatable/js/responsive.bootstrap4.min.js"></script>
+
+    <script>
+        $('#ClientMaster').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_ ',
+            }
+        });
+    </script>
+}
