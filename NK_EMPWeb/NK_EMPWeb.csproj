@@ -182,6 +182,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BAL\EmployeeManagement\ClientMasterBAL.cs" />
+    <Compile Include="BAL\EmployeeManagement\CountryMasterBAL.cs" />
     <Compile Include="BAL\NavigationBal.cs" />
     <Compile Include="BAL\UsersGroup.cs" />
     <Compile Include="Controllers\EmployeeManagement\ClientMasterController.cs" />
@@ -8165,6 +8166,7 @@
     <Content Include="Scripts\Angular\DAL\CommonJs.js" />
     <Content Include="Scripts\Angular\DAL\DAL.js" />
     <Content Include="Scripts\Angular\DAL\Navigation.js" />
+    <Content Include="Scripts\Angular\EmployeeManagement\Services\ClientMasterServices.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\css\sidemenu.css.map" />
@@ -8395,13 +8397,13 @@
     <Content Include="Views\ClientMaster\ClientDashboard.cshtml" />
     <Content Include="Views\ClientMaster\CreateNewClient.cshtml" />
     <Content Include="Views\ClientMaster\ClientDetails.cshtml" />
+    <Content Include="Views\ClientMaster\ClientEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BAL\AssetManagement\" />
     <Folder Include="BAL\Timesheet\" />
     <Folder Include="Scripts\Angular\AssetManagement\" />
-    <Folder Include="Scripts\Angular\EmployeeManagement\" />
     <Folder Include="Scripts\Angular\Timesheet\" />
   </ItemGroup>
   <ItemGroup>

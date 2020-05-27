@@ -44,8 +44,8 @@ namespace NK_EMPWeb.BAL.EmployeeManagement
         public List<Emp_ClientMasterDetailsModels> GetClientById(ClientContext clientContext,string id)
         {
             List<Emp_ClientMasterDetailsModels> emp_ClientMasterDetailsModels = new List<Emp_ClientMasterDetailsModels>();
-            
-            JArray jArray = RESTGetByID(clientContext, id);
+            var filter = "ID eq " + id;
+            JArray jArray = RESTGet(clientContext, filter);
 
             foreach (JObject j in jArray)
             {
@@ -62,7 +62,7 @@ namespace NK_EMPWeb.BAL.EmployeeManagement
                     ClientState = j["ClientState"].ToString(),
                     ClientCity = j["ClientCity"].ToString(),
                     ClientRemark = j["ClientRemark"].ToString(),
-                    ClientCountry = j["ClientCountry"].ToString()
+                    ClientCountry = Convert.ToString(j["ClientCountry"]["CountryName"]).Trim(),
                 });
             }
 
@@ -92,23 +92,6 @@ namespace NK_EMPWeb.BAL.EmployeeManagement
 
             return jArray;
         }
-
-        private JArray RESTGetByID(ClientContext clientContext, string ID)
-        {
-            RestService restService = new RestService();
-            JArray jArray = new JArray();
-            RESTOption rESTOption = new RESTOption();
-
-            rESTOption.select = "ID,FromDate,Todate,Reason,EmployeeName/Title,EmployeeName/ID,CurrentApprover/Title,CurrentApprover/ID,StatusMaster/StatusName,InternalStatus";
-            rESTOption.expand = "EmployeeName,CurrentApprover,StatusMaster";
-            rESTOption.top = "5000";
-
-
-            jArray = restService.GetItemByID(clientContext, "WorkFromHome", rESTOption, ID);
-
-            return jArray;
-        }
-
 
         private string RESTSave(ClientContext clientContext, string ItemData)
         {

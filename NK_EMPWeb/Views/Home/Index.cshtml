@@ -14,6 +14,7 @@
     </div>
     <div class="col-sm-6 col-md-2 mg-t-10 float-right">
         ClientMaster/ClientDashboard
+        <button type="submit" onclick="back()" class="btn btn-dark btn-block">Dashboard</button>
         <a class="btn btn-info btn-block text-white" href="ClientMaster/ClientDashboard?SPHostUrl=https://ascenworktech.sharepoint.com/sites/Developer/">Dashboard</a>
     </div>
     <div class="col-sm-6 col-md-2 mg-t-10 float-right">
@@ -21,3 +22,11 @@
         <a class="btn btn-info btn-block text-white" href="ClientMaster/ClientDetails/8?SPHostUrl=https://ascenworktech.sharepoint.com/sites/Developer/">Details</a>
     </div>
 </div>
+@section scripts{
+    <script>
+        function back() {
+            Pageredirect("/ClientMaster/ClientDashboard");
+        }
+    </script>
+    
+}

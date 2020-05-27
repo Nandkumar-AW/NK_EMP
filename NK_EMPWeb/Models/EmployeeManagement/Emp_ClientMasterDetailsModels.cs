@@ -8,6 +8,7 @@ namespace NK_EMPWeb.Models.EmployeeManagement
     public class Emp_ClientMasterDetailsModels
     {
         public int ID { get; set; }
+        //[DisplayName="Client Name "]
         public string ClientName { get; set; }
         public string ClientAddress { get; set; }
         public string ClientContact { get; set; }
