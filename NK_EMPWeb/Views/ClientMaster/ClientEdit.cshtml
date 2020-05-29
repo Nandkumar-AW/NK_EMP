@@ -1,7 +1,7 @@
 ﻿@model NK_EMPWeb.Models.EmployeeManagement.Emp_ClientMasterDetailsModels
 
 @{
-    ViewBag.Title = "CreateNewClient";
+    ViewBag.Title = "Edit Client";
 }
 @section style
 {
@@ -16,28 +16,29 @@
 </div>
 <!-- breadcrumb -->
 <!-- row -->
-<div class="row">
-    <div class="col-xl-12 col-lg-12">
+<div class="row" ng-app="ClientMasterApp" ng-controller="ClientMasterController">
+    <div class="col-xl-12 col-lg-12" id="editclient">
         <!--Dashboard Code start-->
         <div class="card mg-b-20">
             <div class="custom-card">
                 <div class="card-body">
-                    @using (Html.BeginForm())
+                    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "editclient" }))
                     {
                         @Html.AntiForgeryToken()
-
                         <div class="card-body">
                             <div class="row row-sm">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="ClientName">Client Name</label>
                                         @Html.EditorFor(model => model.ClientName, new { htmlAttributes = new { @class = "form-control", @id = "ClientName", @placeholder = "Enter Client Name" } })
+                                        @Html.ValidationMessageFor(model => model.ClientName, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="Contact">Contact</label>
                                         @Html.EditorFor(model => model.ClientContact, new { htmlAttributes = new { @class = "form-control", @id = "Contact", @placeholder = "Enter Contact" } })
+                                        @Html.ValidationMessageFor(model => model.ClientContact, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -46,12 +47,14 @@
                                     <div class="form-group">
                                         <label for="address">Address</label>
                                         @Html.EditorFor(model => model.ClientAddress, new { htmlAttributes = new { @class = "form-control", @id = "address", @placeholder = "Enter Address" } })
+                                        @Html.ValidationMessageFor(model => model.ClientAddress, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="city">City</label>
                                         @Html.EditorFor(model => model.ClientCity, new { htmlAttributes = new { @class = "form-control", @id = "city", @placeholder = "Enter City" } })
+                                        @Html.ValidationMessageFor(model => model.ClientCity, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -60,21 +63,14 @@
                                     <div class="form-group">
                                         <label for="state">State</label>
                                         @Html.EditorFor(model => model.ClientState, new { htmlAttributes = new { @class = "form-control", @id = "state", @placeholder = "Enter State" } })
+                                        @Html.ValidationMessageFor(model => model.ClientState, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="">Country</label>
-                                        <select class="form-control select2">
-                                            <option label="Choose Country">
-                                            </option>
-                                            @foreach (NK_EMPWeb.Models.EmployeeManagement.Emp_CountryModels country in (List<NK_EMPWeb.Models.EmployeeManagement.Emp_CountryModels>)ViewBag.country)
-                                            {
-                                                <option value="@country.ID">
-                                                    @country.CountryName
-                                                </option>
-                                            }
-                                        </select>
+                                        @Html.DropDownList("ClientCountry", ViewBag.country as IEnumerable<SelectListItem>, "Choose Country", new { @id = "ClientId", @class = "form-control select2" })
+                                        @Html.ValidationMessageFor(model => model.ClientCountry, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -83,12 +79,14 @@
                                     <div class="form-group">
                                         <label for="designation">Designation</label>
                                         @Html.EditorFor(model => model.ClientDesignation, new { htmlAttributes = new { @class = "form-control", @id = "designation", @placeholder = "Enter designation" } })
+                                        @Html.ValidationMessageFor(model => model.ClientDesignation, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="mailID">Email ID</label>
                                         @Html.EditorFor(model => model.ClientMailID, new { htmlAttributes = new { @class = "form-control", @id = "mailID", @placeholder = "Enter Email ID" } })
+                                        @Html.ValidationMessageFor(model => model.ClientMailID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -97,12 +95,14 @@
                                     <div class="form-group">
                                         <label for="gstNo">GST No</label>
                                         @Html.EditorFor(model => model.ClientGSTNO, new { htmlAttributes = new { @class = "form-control", @id = "gstNo", @placeholder = "Enter GST No" } })
+                                        @Html.ValidationMessageFor(model => model.ClientGSTNO, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="panCardno">PAN Card No</label>
                                         @Html.EditorFor(model => model.ClientPanCardNo, new { htmlAttributes = new { @class = "form-control", @id = "panCardno", @placeholder = "Enter PAN Card No" } })
+                                        @Html.ValidationMessageFor(model => model.ClientPanCardNo, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -119,6 +119,7 @@
                                     <div class="form-group">
                                         <label for="remark">Remark</label>
                                         @Html.EditorFor(model => model.ClientRemark, new { htmlAttributes = new { @class = "form-control", @id = "remark", @placeholder = "Enter Remark" } })
+                                        @Html.ValidationMessageFor(model => model.ClientRemark, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +128,7 @@
                                     <button type="submit" class="btn btn-primary btn-block">Submit</button>
                                 </div>
                                 <div class="col-sm-6 col-md-3 mg-t-10">
-                                    <button type="button" onclick="back()" class="btn btn-light btn-block">Cancel</button>
+                                    <button type="button" ng-click="cancel()" class="btn btn-light btn-block">Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +144,10 @@
 
 @section scripts
 {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/assets/plugins/select2/js/select2.min.js"></script>
     <script src="~/assets/js/select2.js"></script>
     <script src="~/Scripts/Angular/EmployeeManagement/Services/ClientMasterServices.js"></script>
+    <script src="~/Scripts/Angular/EmployeeManagement/JS/ClientMasterController.js"></script>
 }

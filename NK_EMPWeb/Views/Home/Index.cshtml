@@ -9,13 +9,12 @@
 </div>
 <div class="row">
     <div class="col-sm-6 col-md-2 mg-t-10 float-right">
-        ClientMaster/CreateNewClient
-        <a class="btn btn-info btn-block text-white" href="ClientMaster/CreateNewClient?SPHostUrl=https://ascenworktech.sharepoint.com/sites/Developer/">Add</a>
-    </div>
-    <div class="col-sm-6 col-md-2 mg-t-10 float-right">
         ClientMaster/ClientDashboard
         <button type="submit" onclick="back()" class="btn btn-dark btn-block">Dashboard</button>
-        <a class="btn btn-info btn-block text-white" href="ClientMaster/ClientDashboard?SPHostUrl=https://ascenworktech.sharepoint.com/sites/Developer/">Dashboard</a>
+    </div>
+    <div class="col-sm-6 col-md-2 mg-t-10 float-right">
+        ClientMaster/CreateNewClient
+        <button type="submit" onclick="AddnewClient()" class="btn btn-success btn-block">Add Client</button>
     </div>
     <div class="col-sm-6 col-md-2 mg-t-10 float-right">
         ClientMaster/ClientDetails
@@ -27,6 +26,10 @@
         function back() {
             Pageredirect("/ClientMaster/ClientDashboard");
         }
+        function AddnewClient() {
+                Pageredirect("/ClientMaster/CreateNewClient");
+        }
+       
     </script>
     
 }

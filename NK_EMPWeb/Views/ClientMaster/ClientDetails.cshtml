@@ -14,7 +14,7 @@
 </div>
 <!-- breadcrumb -->
 <!-- row -->
-<div class="row">
+<div class="row"  ng-app="ClientMasterApp" ng-controller="ClientMasterController">
     <div class="col-xl-12 col-lg-12">
 
 
@@ -163,7 +163,7 @@
 
                         <div class="row row-sm text-center justify-content-center">
                             <div class="col-lg-3">
-                                <button type="button" onclick="back()" class="btn btn-light btn-block">Back</button>
+                                <button type="button" ng-click="cancel()" class="btn btn-light btn-block">Back</button>
                             </div>
                         </div>
                     </div>
@@ -177,4 +177,5 @@
 <!-- row closed -->
 @section scripts {
     <script src="~/Scripts/Angular/EmployeeManagement/Services/ClientMasterServices.js"></script>
+    <script src="~/Scripts/Angular/EmployeeManagement/JS/ClientMasterController.js"></script>
 }

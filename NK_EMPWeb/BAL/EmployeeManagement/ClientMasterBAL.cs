@@ -78,6 +78,12 @@ namespace NK_EMPWeb.BAL.EmployeeManagement
             return response;
         }
 
+        public string UpdateClient(ClientContext clientContext, string ItemData, string ID)
+        {
+            string response = RESTUpdate(clientContext, ItemData, ID);
+            return response;
+        }
+
         private JArray RESTGet(ClientContext clientContext, string filter)
         {
             RestService restService = new RestService();
@@ -85,7 +91,7 @@ namespace NK_EMPWeb.BAL.EmployeeManagement
             RESTOption rESTOption = new RESTOption();
 
             rESTOption.filter = filter;
-            rESTOption.select = "ID,ClientName,ClientAddress,ClientContact,ClientMailID,ClientDesignation,ClientGSTNO,ClientPanCardNo,ClientState,ClientCity,ClientRemark,ClientCountry/CountryName";
+            rESTOption.select = "ID,ClientName,ClientAddress,ClientContact,ClientMailID,ClientDesignation,ClientGSTNO,ClientPanCardNo,ClientState,ClientCity,ClientRemark,ClientCountry/ID,ClientCountry/CountryName";
             rESTOption.expand = "ClientCountry";
             rESTOption.top = "5000";
             jArray = restService.GetAllItemFromList(clientContext, "Emp_ClientMasterDetails", rESTOption);
@@ -98,6 +104,13 @@ namespace NK_EMPWeb.BAL.EmployeeManagement
             RestService restService = new RestService();
 
             return restService.SaveItem(clientContext, "Emp_ClientMasterDetails", ItemData);
+        }
+
+        private string RESTUpdate(ClientContext clientContext, string ItemData, string ID)
+        {
+            RestService restService = new RestService();
+
+            return restService.UpdateItem(clientContext, "Emp_ClientMasterDetails", ItemData, ID);
         }
     }
 }

@@ -17,6 +17,8 @@ namespace NK_EMPWeb.Controllers.EmployeeManagement
         //BAL References
         ClientMasterBAL clientMaster = new ClientMasterBAL();
         CountryMasterBAL country = new CountryMasterBAL();
+
+
         // GET: ClientMaster
         public ActionResult Index()
         {
@@ -34,14 +36,16 @@ namespace NK_EMPWeb.Controllers.EmployeeManagement
             ViewBag.ClientList = emp_ClientMasterDetails;
             return View();
         }
-       
+
         [SharePointContextFilter]
-        public ActionResult ClientDetails(int? id)
+        public ActionResult ClientDetails()
         {
+            
+            string id = Request.Cookies["ID"].Value.ToString(); 
             var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
             using (var clientContext = spContext.CreateUserClientContextForSPHost())
             {
-                emp_ClientMasterDetails = clientMaster.GetClientById(clientContext, id.ToString());
+                emp_ClientMasterDetails = clientMaster.GetClientById(clientContext, id);
             }
             return View(emp_ClientMasterDetails);
         }
@@ -49,43 +53,66 @@ namespace NK_EMPWeb.Controllers.EmployeeManagement
         [HttpGet]
         public ActionResult CreateNewClient()
         {
+            
             var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
             using (var clientContext = spContext.CreateUserClientContextForSPHost())
             {
                 emp_Countries = country.GetAllCountries(clientContext);
+                IEnumerable<Emp_CountryModels> countryModels = country.GetAllCountries(clientContext);
+                var listToClient = countryModels.Select(p => new { p.CountryName, p.ID }).ToList();
+                var items = listToClient.Select(i => new SelectListItem { Text = i.CountryName, Value = i.ID.ToString() });
+                ViewBag.country = items;
             }
-            ViewBag.country = emp_Countries;
             return View();
         }
+
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateNewClient(Emp_ClientMasterDetailsModels _ClientMasterDetailsModels)
         {
-            if (ModelState.IsValid)
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+            if (!ModelState.IsValid)
             {
-                var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
                 using (var clientContext = spContext.CreateUserClientContextForSPHost())
                 {
+
+                    emp_Countries = country.GetAllCountries(clientContext);
+                    IEnumerable<Emp_CountryModels> countryModels = country.GetAllCountries(clientContext);
+                    var listToClient = countryModels.Select(p => new { p.CountryName, p.ID }).ToList();
+                    var items = listToClient.Select(i => new SelectListItem { Text = i.CountryName, Value = i.ID.ToString() });
+                    ViewBag.country = items;
+                }
+            }
+            else
+            { 
+                //var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+                using (var clientContext = spContext.CreateUserClientContextForSPHost())
+                {
+
                     string items = "'ClientName' : '" + _ClientMasterDetailsModels.ClientName + "'";
-                    //items += ",'ClientAddress':" + _ClientMasterDetailsModels.ClientAddress;
-                    //items += ",'ClientContact':" + _ClientMasterDetailsModels.ClientContact;
-                    //items += ",'ClientMailID':" + _ClientMasterDetailsModels.ClientMailID;
-                    //items += ",'ClientDesignation':" + _ClientMasterDetailsModels.ClientDesignation;
-                    //items += ",'ClientGSTNO':" + _ClientMasterDetailsModels.ClientGSTNO;
-                    //items += ",'ClientPanCardNo':" + _ClientMasterDetailsModels.ClientPanCardNo;
-                    //items += ",'ClientState':" + _ClientMasterDetailsModels.ClientState;
-                    //items += ",'ClientCity':" + _ClientMasterDetailsModels.ClientCity;
-                    //items += ",'ClientRemark':" + _ClientMasterDetailsModels.ClientRemark;
-                    //items += ",'ClientCountry':" + _ClientMasterDetailsModels.ClientCountry;
+                    items += ",'ClientAddress' : '" + _ClientMasterDetailsModels.ClientAddress + "'";
+                    items += ",'ClientContact' : " + _ClientMasterDetailsModels.ClientContact;
+                    items += ",'ClientMailID' : '" + _ClientMasterDetailsModels.ClientMailID + "'";
+                    items += ",'ClientDesignation' : '" + _ClientMasterDetailsModels.ClientDesignation + "'";
+                    items += ",'ClientGSTNO' : '" + _ClientMasterDetailsModels.ClientGSTNO + "'";
+                    items += ",'ClientPanCardNo' : '" + _ClientMasterDetailsModels.ClientPanCardNo + "'";
+                    items += ",'ClientState' : '" + _ClientMasterDetailsModels.ClientState + "'";
+                    items += ",'ClientCity' : '" + _ClientMasterDetailsModels.ClientCity + "'";
+                    items += ",'ClientRemark' : '" + _ClientMasterDetailsModels.ClientRemark + "'";
+                    items += ",'ClientCountryId' : " + _ClientMasterDetailsModels.ClientCountry;
                     clientMaster.SaveClient(clientContext, items);
                 }
-                return View();
+                string path = "?SPHostUrl=" + spContext.SPHostUrl.ToString();
+                return Redirect("ClientDashboard" + path);
             }
             return View();
         }
         [SharePointContextFilter]
         [HttpGet]
-        public ActionResult ClientEdit(int? id)
+        public ActionResult ClientEdit()
         {
+            string id = Request.Cookies["ID"].Value.ToString();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -96,16 +123,62 @@ namespace NK_EMPWeb.Controllers.EmployeeManagement
                 emp_ClientMasterDetails = clientMaster.GetClientById(clientContext, id.ToString());
 
                 emp_Countries = country.GetAllCountries(clientContext);
-                ViewBag.country = emp_Countries;
+                IEnumerable<Emp_CountryModels> countryModels = country.GetAllCountries(clientContext);
+                var listToClient = countryModels.Select(p => new { p.CountryName, p.ID }).ToList();
+                var items = listToClient.Select(i => new SelectListItem { Text = i.CountryName, Value = i.ID.ToString() });
+                ViewBag.country = items;
             }
-        
             if (emp_ClientMasterDetails == null)
             {
                 return HttpNotFound();
             }
-            var client = emp_ClientMasterDetails.Where(s => s.ID == id).FirstOrDefault();
-
+            var client = emp_ClientMasterDetails.Where(s => s.ID == Convert.ToInt32(id)).FirstOrDefault();
             return View(client);
+        }
+
+
+        [SharePointContextFilter]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ClientEdit(Emp_ClientMasterDetailsModels _ClientMasterDetailsModels)
+        {
+            string ID = Request.Cookies["ID"].Value.ToString();
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+            if (!ModelState.IsValid)
+            {
+                using (var clientContext = spContext.CreateUserClientContextForSPHost())
+                {
+                    emp_ClientMasterDetails = clientMaster.GetClientById(clientContext, ID);
+
+                    emp_Countries = country.GetAllCountries(clientContext);
+                    IEnumerable<Emp_CountryModels> countryModels = country.GetAllCountries(clientContext);
+                    var listToClient = countryModels.Select(p => new { p.CountryName, p.ID }).ToList();
+                    var items = listToClient.Select(i => new SelectListItem { Text = i.CountryName, Value = i.ID.ToString() });
+                    ViewBag.country = items;
+                }
+            }
+            else
+            {
+                using (var clientContext = spContext.CreateUserClientContextForSPHost())
+                {
+
+                    string items = "'ClientName' : '" + _ClientMasterDetailsModels.ClientName + "'";
+                    items += ",'ClientAddress' : '" + _ClientMasterDetailsModels.ClientAddress + "'";
+                    items += ",'ClientContact' : " + _ClientMasterDetailsModels.ClientContact;
+                    items += ",'ClientMailID' : '" + _ClientMasterDetailsModels.ClientMailID + "'";
+                    items += ",'ClientDesignation' : '" + _ClientMasterDetailsModels.ClientDesignation + "'";
+                    items += ",'ClientGSTNO' : '" + _ClientMasterDetailsModels.ClientGSTNO + "'";
+                    items += ",'ClientPanCardNo' : '" + _ClientMasterDetailsModels.ClientPanCardNo + "'";
+                    items += ",'ClientState' : '" + _ClientMasterDetailsModels.ClientState + "'";
+                    items += ",'ClientCity' : '" + _ClientMasterDetailsModels.ClientCity + "'";
+                    items += ",'ClientRemark' : '" + _ClientMasterDetailsModels.ClientRemark + "'";
+                    items += ",'ClientCountryId' : " + _ClientMasterDetailsModels.ClientCountry;
+                    clientMaster.UpdateClient(clientContext, items, ID);
+                }
+                string path = "?SPHostUrl="+ spContext.SPHostUrl.ToString();
+                return Redirect("ClientDashboard" + path);
+            }
+            return View(_ClientMasterDetailsModels);
         }
     }
 }

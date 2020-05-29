@@ -6,12 +6,12 @@
 
 @section style{
     <!-- Internal Data table css -->
-<link href="~/assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-<link href="~/assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
-<link href="~/assets/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
-<link href="~/assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="~/assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
-<link href="~/assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
+    <link href="~/assets/plugins/select2/css/select2.min.css" rel="stylesheet">
 }
 
 <div class="breadcrumb-header justify-content-between">
@@ -23,7 +23,7 @@
 </div>
 <!-- breadcrumb -->
 <!-- row -->
-<div class="row">
+<div class="row" ng-app="ClientMasterApp" ng-controller="ClientMasterController">
     <div class="col-xl-12 col-lg-12">
         <!--Dashboard Code start-->
         <div class="card mg-b-20">
@@ -31,7 +31,7 @@
                 <div class="card-body">
                     <div class=" row-sm text-center">
                         <div class="col-sm-6 col-md-2 mg-t-10 float-right">
-                            <a class="btn btn-info btn-block text-white" href="CreateNewClient?SPHostUrl=https://ascenworktech.sharepoint.com/sites/Developer/">Add</a>
+                            <button type="button" class="btn btn-info btn-block" ng-click="AddClient()">Add</button>
                         </div>
                     </div>
                 </div>
@@ -59,8 +59,8 @@
                                     <td>@clientmaster.ClientMailID</td>
                                     <td>
                                         <div class="btn-icon-list">
-                                            <button class="btn btn-primary btn-icon" onclick="edit(@clientmaster.ID)"><i class="far fa-edit"></i></button>
-                                            <button class="btn btn-primary btn-icon" onclick="ClientDetails(@clientmaster.ID)"><i class="far fa-eye"></i></button>
+                                            <button class="btn btn-primary btn-icon" ng-click="edit(@clientmaster.ID)"><i class="far fa-edit"></i></button>
+                                            <button class="btn btn-primary btn-icon" ng-click="ClientDetails(@clientmaster.ID)"><i class="far fa-eye"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -92,6 +92,7 @@
     <script src="~/assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
     <script src="~/assets/plugins/datatable/js/responsive.bootstrap4.min.js"></script>
     <script src="~/Scripts/Angular/EmployeeManagement/Services/ClientMasterServices.js"></script>
+    <script src="~/Scripts/Angular/EmployeeManagement/JS/ClientMasterController.js"></script>
     <script>
         $('#ClientMaster').DataTable({
             responsive: true,
