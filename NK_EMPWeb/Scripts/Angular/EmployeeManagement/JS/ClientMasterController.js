@@ -10,11 +10,11 @@ ClientMasterApp.controller('ClientMasterController', function ($scope) {
         Pageredirect("/ClientMaster/ClientDashboard")
     }
     $scope.ClientDetails = function (cid) {
-        document.cookie="ID"+cid
+        document.cookie="ID="+cid
         Pageredirect("/ClientMaster/ClientDetails");
     }
     $scope.edit = function (cid) {
-        document.cookie = "ID" + cid
+        document.cookie = "ID=" + cid
         Pageredirect("/ClientMaster/ClientEdit");
     }
 

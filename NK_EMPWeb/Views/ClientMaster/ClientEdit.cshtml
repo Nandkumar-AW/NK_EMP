@@ -125,7 +125,7 @@
                             </div>
                             <div class="row row-sm text-center justify-content-center">
                                 <div class="col-sm-6 col-md-3 mg-t-10">
-                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                    <button type="submit" class="btn btn-primary btn-block" id="updateClient" data-target="#updateClient" data-toggle="modal">Submit</button>
                                 </div>
                                 <div class="col-sm-6 col-md-3 mg-t-10">
                                     <button type="button" ng-click="cancel()" class="btn btn-light btn-block">Cancel</button>
@@ -141,6 +141,17 @@
 </div>
 <!-- row closed -->
 
+<div class="modal" id="updateClient" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content tx-size-sm">
+            <div class="modal-body tx-center pd-y-20 pd-x-20">
+                <i class="icon ion-ios-checkmark-circle-outline tx-100 tx-success lh-1 mg-t-20 d-inline-block"></i>
+                <h4 class="tx-success tx-semibold mg-b-20">Congratulations!</h4>
+                <p class="mg-b-20 mg-x-20">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.</p><button aria-label="Close" class="btn ripple btn-success pd-x-25" data-dismiss="modal" type="button">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts
 {
